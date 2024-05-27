@@ -1,80 +1,51 @@
-window.addEventListener("load", function () {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("ServiceWorker.js");
+const express = require("express");
+const path = require("path");
+const TelegramBot = require("node-telegram-bot-api");
+const TOKEN = "7200918801:AAHinuCFwPXHU6NkTgd2oaad31r4Hecp0Ms";
+const server = express();
+const bot = new TelegramBot(TOKEN, {
+    polling: true
+});
+const port = process.env.PORT || 5000;
+const gameName = "HamstaWebTest";
+const queries = {};
+server.use(express.static(path.join(__dirname, 'HamstaWeb')));
+bot.onText(/help/, (msg) => bot.sendMessage(msg.from.id, "Say /game if you want to play."));
+bot.onText(/start|game/, (msg) => bot.sendGame(msg.from.id, gameName));
+bot.on("callback_query", function (query) {
+    if (query.game_short_name !== gameName) {
+        bot.answerCallbackQuery(query.id, "Sorry, '" + query.game_short_name + "' is not available.");
+    } else {
+        queries[query.id] = query;
+        let gameurl = "https://capitoxa.github.io/HamstaWEB/";
+        bot.answerCallbackQuery({
+            callback_query_id: query.id,
+            url: gameurl
+        });
     }
-  });
-  var unityInstanceRef;
-  var unsubscribe;
-  var container = document.querySelector("#unity-container");
-  var canvas = document.querySelector("#unity-canvas");
-  var loadingBar = document.querySelector("#unity-loading-bar");
-  var progressBarFull = document.querySelector("#unity-progress-bar-full");
-  var warningBanner = document.querySelector("#unity-warning");
-
-  // Shows a temporary message banner/ribbon for a few seconds, or
-  // a permanent error message on top of the canvas if type=='error'.
-  // If type=='warning', a yellow highlight color is used.
-  // Modify or remove this function to customize the visually presented
-  // way that non-critical warnings and error messages are presented to the
-  // user.
-  function unityShowBanner(msg, type) {
-    function updateBannerVisibility() {
-      warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+});
+bot.on("inline_query", function (iq) {
+    bot.answerInlineQuery(iq.id, [{
+        type: "game",
+        id: "0",
+        game_short_name: gameName
+    }]);
+});
+server.get("/highscore/:score", function (req, res, next) {
+    if (!Object.hasOwnProperty.call(queries, req.query.id)) return next();
+    let query = queries[req.query.id];
+    let options;
+    if (query.message) {
+        options = {
+            chat_id: query.message.chat.id,
+            message_id: query.message.message_id
+        };
+    } else {
+        options = {
+            inline_message_id: query.inline_message_id
+        };
     }
-    var div = document.createElement('div');
-    div.innerHTML = msg;
-    warningBanner.appendChild(div);
-    if (type == 'error') div.style = 'background: red; padding: 10px;';
-    else {
-      if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-      setTimeout(function() {
-        warningBanner.removeChild(div);
-        updateBannerVisibility();
-      }, 5000);
-    }
-    updateBannerVisibility();
-  }
-
-  var buildUrl = "Build";
-  var loaderUrl = buildUrl + "/HamstaWEB.loader.js";
-  var config = {
-    dataUrl: buildUrl + "/HamstaWEB.data",
-    frameworkUrl: buildUrl + "/HamstaWEB.framework.js",
-    codeUrl: buildUrl + "/HamstaWEB.wasm",
-    streamingAssetsUrl: "StreamingAssets",
-    companyName: "Vireye",
-    productName: "Hamster MiniGame",
-    productVersion: "0.1.0",
-    showBanner: unityShowBanner,
-  };
-
-  // By default Unity keeps WebGL canvas render target size matched with
-  // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-  // Set this to false if you want to decouple this synchronization from
-  // happening inside the engine, and you would instead like to size up
-  // the canvas DOM size and WebGL render target sizes yourself.
-  // config.matchWebGLToCanvasSize = false;
-
-  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-    // Mobile device style: fill the whole browser client area with the game canvas:
-    var meta = document.createElement('meta');
-    meta.name = 'viewport';
-    meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-    document.getElementsByTagName('head')[0].appendChild(meta);
-  }
-
-  loadingBar.style.display = "block";
-
-  var script = document.createElement("script");
-  script.src = loaderUrl;
-  script.onload = () => {
-    createUnityInstance(canvas, config, (progress) => {
-      progressBarFull.style.width = 100 * progress + "%";
-    }).then((unityInstance) => {
-      unityInstanceRef = unityInstance;
-      loadingBar.style.display = "none";
-    }).catch((message) => {
-      alert(message);
-    });
-  };
-  document.body.appendChild(script);
+    bot.setGameScore(query.from.id, parseInt(req.params.score), options,
+        function (err, result) {});
+});
+server.listen(port);
