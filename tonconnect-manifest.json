@@ -1,0 +1,5 @@
+{
+	"url": "https://capitoxa.github.io/HamstaWEB", // site of your application, in non webgl build use any
+	"name": "Hamsta WEB Test", // project name, will be displayed in wallet 
+	"iconUrl": "https://example.com/logo.png" // pr
+}
