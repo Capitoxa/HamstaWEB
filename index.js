@@ -38,13 +38,13 @@ window.addEventListener("load", function () {
   var buildUrl = "Build";
   var loaderUrl = buildUrl + "/9edd899bc6b6e0bbc4f46ff33ca0bba6.loader.js";
   var config = {
-    dataUrl: buildUrl + "/31f392ed5457ff7e746cb68102cb9dea.data",
-    frameworkUrl: buildUrl + "/6dc3bc6ea6f4c324e7398e180a0050d8.framework.js",
-    codeUrl: buildUrl + "/07c5790033429e1ba77a61dd2372caac.wasm",
+    dataUrl: buildUrl + "/895969d220d455e2d069407fdf0312d2.data",
+    frameworkUrl: buildUrl + "/c6c6d086731316eaa18ebd5c4badfb34.framework.js",
+    codeUrl: buildUrl + "/599afaaa8a691162a11269020697c453.wasm",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "Vireye",
     productName: "ToTheMoon",
-    productVersion: "0.1.24",
+    productVersion: "0.1.25",
     showBanner: unityShowBanner,
   };
 
