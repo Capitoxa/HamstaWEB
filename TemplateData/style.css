@@ -11,7 +11,7 @@ body { padding: 0; margin: 0 }
     height: 123px; 
     margin-top: 10px;  
     border-image: url('UI-RectangleWhiteButton.png');
-    border-image-slice: 40 96 40 96;
+    border-image-slice: 40 96 40 96 fill;
     border-image-width: auto; }
 #unity-progress-bar-full { width: 0%; height: 101px; margin-top: 5px; margin-bottom: 16px; background-image: url('progress-bar-full-dark.png') no-repeat center }
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
