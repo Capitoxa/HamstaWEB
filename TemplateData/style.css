@@ -14,7 +14,8 @@ body { padding: 0; margin: 0 }
     border-image-slice: 40 96 40 96 fill;
     border-image-width: auto; 
 }
-#unity-progress-bar-full { 
+#unity-progress-bar-full {
+    margin: 5px;
     display: block;
     height: 40px;
     background-color: #5DEF34;
