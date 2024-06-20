@@ -18,8 +18,8 @@ body { padding: 0; margin: 0 }
     display: block;
     margin-left: 5px;
     margin-right: 5px;
-    margin-top: 5px; 
-    height: 45px;
+    margin-top: 10px; 
+    height: 40px;
     background-color: #5DEF34;
 }
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
