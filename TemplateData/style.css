@@ -15,12 +15,8 @@ body { padding: 0; margin: 0 }
     border-image-width: auto; 
 }
 #unity-progress-bar-full { 
-    width: 0%; 
-    height: 101px; 
-    margin-top: 5px; 
-    margin-bottom: 16px; 
-    border-image: url('progress-bar-full-dark.png');
-    border-image-slice: 10 10 10 10 fill;
-    border-image-width: auto; 
+    display: block;
+    height: 45px;
+    background-color: #659cef;
 }
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
