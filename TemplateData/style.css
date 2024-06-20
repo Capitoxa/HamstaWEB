@@ -16,11 +16,7 @@ body { padding: 0; margin: 0 }
 }
 #unity-progress-bar-full { 
     display: block;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-top: 50px; 
-    margin-bottom: 5px; 
-    height: 60px;
+    height: 40px;
     background-color: #5DEF34;
 }
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
