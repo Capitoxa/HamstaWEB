@@ -1,6 +1,6 @@
 {
-    "name": "Hamster MiniGame",
-    "short_name": "Hamster MiniGame",
+    "name": "ToTheMoon",
+    "short_name": "ToTheMoon",
     "start_url": "index.html",
     "display": "fullscreen",
     "background_color": "#231F20",
