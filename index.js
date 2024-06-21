@@ -8,6 +8,7 @@ window.addEventListener("load", function () {
   var container = document.querySelector("#unity-container");
   var canvas = document.querySelector("#unity-canvas");
   var loadingBar = document.querySelector("#unity-loading-bar");
+  var loadingRoot = document.querySelector("#unity-loading-root")
   var progressBarFull = document.querySelector("#unity-progress-bar-full");
   var warningBanner = document.querySelector("#unity-warning");
 
@@ -38,13 +39,13 @@ window.addEventListener("load", function () {
   var buildUrl = "Build";
   var loaderUrl = buildUrl + "/9edd899bc6b6e0bbc4f46ff33ca0bba6.loader.js";
   var config = {
-    dataUrl: buildUrl + "/895969d220d455e2d069407fdf0312d2.data",
-    frameworkUrl: buildUrl + "/c6c6d086731316eaa18ebd5c4badfb34.framework.js",
-    codeUrl: buildUrl + "/599afaaa8a691162a11269020697c453.wasm",
+    dataUrl: buildUrl + "/02af7a0e1532d2d1c344207dd71427cc.data",
+    frameworkUrl: buildUrl + "/0107b551d1bc575c5ca53f5555bfd816.framework.js",
+    codeUrl: buildUrl + "/0373ab63cdd7cd9796d4ba3e2ee488ee.wasm",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "Vireye",
     productName: "ToTheMoon",
-    productVersion: "0.1.25",
+    productVersion: "0.1.28",
     showBanner: unityShowBanner,
   };
 
@@ -63,7 +64,7 @@ window.addEventListener("load", function () {
     document.getElementsByTagName('head')[0].appendChild(meta);
   }
 
-  loadingBar.style.display = "block";
+  loadingRoot.style.display = "block";
 
   var script = document.createElement("script");
   script.src = loaderUrl;
@@ -72,7 +73,7 @@ window.addEventListener("load", function () {
       progressBarFull.style.width = 100 * progress + "%";
     }).then((unityInstance) => {
       unityInstanceRef = unityInstance;
-      loadingBar.style.display = "none";
+      loadingRoot.style.display = "none";
     }).catch((message) => {
       alert(message);
     });
